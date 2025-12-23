@@ -21,7 +21,6 @@ AffNet_LP/
 │   ├── predict_rec.py
 │   └── utils.py
 ├── requirements.txt
-├── run_all.sh
 └── README.md
 ```
 
@@ -132,21 +131,6 @@ data_folder = "<path to dataset directory>"
 
 ### Step 7: Run experiments
 
-#### Link Prediction
-
-```powershell
-python affNet/predict_link.py --dataset=Roman-empire --emb_features=128 --n_heads=4 --max_nodes=4000 --init_lr=0.0005 --epochs=2000
-```
-
-#### Recommendation
-
-```powershell
-python AffNetR/predict_rec.py
-```
-
-Alternatively, run all experiments:
-
-```powershell
 bash run_all.sh
 ```
 
@@ -179,4 +163,4 @@ python -m pip install "numpy<2"
 
 ## License
 
-Add license information here if applicable.
+MIT License.
