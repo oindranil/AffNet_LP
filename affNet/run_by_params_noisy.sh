@@ -1,0 +1,16 @@
+#python predict_link_noisy.py --dataset=Cora --emb_features=358 --n_heads=4 --max_nodes=2708 --init_lr=0.002 --epochs=2000
+#python predict_link_noisy.py --dataset=CiteSeer --emb_features=925 --n_heads=4 --max_nodes=3327 --init_lr=0.002 --epochs=2000
+#python predict_link_noisy.py --dataset=PubMed --emb_features=256 --n_heads=4 --max_nodes=4000 --init_lr=0.0002 --epochs=2000
+#python predict_link_noisy.py --dataset=Texas --emb_features=425 --n_heads=4 --max_nodes=183 --init_lr=0.01 --epochs=2000
+#python predict_link_noisy.py --dataset=Cornell --emb_features=425 --n_heads=4 --max_nodes=183 --init_lr=0.002 --epochs=2000
+#python predict_link_noisy.py --dataset=Wisconsin --emb_features=425 --n_heads=4 --max_nodes=251 --init_lr=0.01 --epochs=2000
+#python predict_link_noisy.py --dataset=Amazon-ratings --emb_features=128 --n_heads=4 --max_nodes=4000 --init_lr=0.0002 --epochs=2000
+#python predict_link_noisy.py --dataset=Roman-empire --emb_features=128 --n_heads=4 --max_nodes=4000 --init_lr=0.0005 --epochs=2000
+#python predict_link_noisy.py --dataset=Questions --emb_features=128 --n_heads=4 --max_nodes=4000 --init_lr=0.001 --epochs=2000
+#python predict_link_noisy.py --dataset=Actor --emb_features=233 --n_heads=4 --max_nodes=4000 --init_lr=0.01 --epochs=2000
+python predict_link_noisy.py --dataset=Photo --emb_features=186 --n_heads=4 --max_nodes=4000 --init_lr=0.002 --epochs=2000
+#python predict_link_noisy.py --dataset=Squirrel --emb_features=300 --n_heads=4 --max_nodes=3000 --init_lr=0.001 --epochs=2000
+#python predict_link_noisy.py --dataset=Chameleon --emb_features=581 --n_heads=4 --max_nodes=2277 --init_lr=0.01 --epochs=1000
+#python predict_link_noisy.py --dataset=ogbl-ppa --emb_features=58 --n_heads=4 --max_nodes=4000 --init_lr=0.001 --epochs=1000
+#python predict_link_noisy.py --dataset=ogbl-collab --emb_features=80 --n_heads=4 --max_nodes=4000 --init_lr=0.001 --epochs=1000
+#python predict_link_noisy.py --dataset=ogbl-citation2 --emb_features=128 --n_heads=4 --max_nodes=4000 --init_lr=0.0001 --epochs=2000
