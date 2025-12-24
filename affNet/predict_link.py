@@ -63,7 +63,6 @@ if not os.path.exists(results_folder+'hist'):
 
 result_cols = ['dataset', 'nodes', 'features', 'classes', 'directed', 
                'emb_features', 'n_heads', 'max_nodes', 'init_lr', 'train_frac', 'epochs', 
-               'n_train_pos', 'n_train_neg', 'n_test_pos', 'n_test_neg',
                'edge_h', 'aff_h', 'min_beta', 'max_beta', 'metric_name', 
                'metric_value', 'metric_std', 'elapsed', 'seed']
 
@@ -113,19 +112,12 @@ for dataset_name in datasets:
     n_chunks = len(subgraphs)
     aff_matrices, aff_values, beta_values, elapsed_times = [], [], [], []
     metrics = []
-    n_train_pos_list, n_train_neg_list, n_test_pos_list, n_test_neg_list = [], [], [], []
     i = 0
     for sg in subgraphs[:max_parts]:
 
         i += 1
         print(f'chunk {i}/{max_parts}')
         data_train, data_test = split_data_on_edges(dataset_name, sg, train_frac=train_frac) 
-        n_train_pos, n_train_neg = data_train.n_pos, data_train.n_neg 
-        n_test_pos, n_test_neg = data_test.n_pos, data_test.n_neg 
-        n_train_pos_list.append(data_train.n_pos)
-        n_train_neg_list.append(data_train.n_neg)
-        n_test_pos_list.append(data_test.n_pos)
-        n_test_neg_list.append(data_test.n_neg)
             
         tf_train = tf_GData(data_train)
         tf_test = tf_GData(data_test)
@@ -155,8 +147,6 @@ for dataset_name in datasets:
         elapsed_times.append(elapsed)
         gc.collect()
 
-    n_train_pos, n_train_neg = np.mean(n_train_pos_list), np.mean(n_train_neg_list)
-    n_test_pos, n_test_neg = np.mean(n_test_pos_list), np.mean(n_test_neg_list)
     aff_matrices = [data_train.pos_edge_index] + aff_matrices
     aff_h = np.mean(aff_values)
     min_beta = np.min(beta_values)
@@ -173,12 +163,10 @@ for dataset_name in datasets:
         
     #plot_affinity(aff_matrices, dataset_name, results_folder, plot_flag, save_flag)
 
-    print(f"n_train_pos:{n_train_pos}, n_train_neg:{n_train_neg}, n_test_pos:{n_test_pos}, n_test_neg:{n_test_neg}")
     print(f"edge-homophily: {edge_h:.4f}, aff-h: {aff_h:.4f}, min_beta={min_beta:.2f}, max_beta={max_beta:.2f}, {metric_name}: {metric_value:.4f}")
     results_df.loc[len(results_df)] = [dataset_name, n_orig_nodes, n_features, n_classes, 
             is_directed, emb_features, n_heads, max_nodes, init_lr, train_frac,
-            epochs, n_train_pos, n_train_neg, n_test_pos, n_test_neg, 
-            edge_h, aff_h, min_beta, max_beta, metric_name, 
+            epochs, edge_h, aff_h, min_beta, max_beta, metric_name, 
             metric_value, metric_std, elapsed, seed]
     results_df.to_csv(results_folder+'results.csv', index=False, float_format="%.4f")
 

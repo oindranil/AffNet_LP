@@ -186,6 +186,7 @@ def plot_affinity(aff_matrices, dataset_name, results_folder, plot_flag=True, sa
     if plot_flag:
         plt.show()
 
+"""
 # compute hit@k between true and pred 
 def compute_hit_rate(true, pred, k=50):
     # hit rate for edges or positive samples
@@ -197,10 +198,8 @@ def compute_hit_rate(true, pred, k=50):
     return(hit_at_k)
 
 def eval_citation2_mrr(aff, data_test):
-    """
-    Manual MRR for ogbl-citation2.
-    Uses existing stored edges.
-    """
+    # Manual MRR for ogbl-citation2.
+    # Uses existing stored edges.
 
     # aff: numpy [N, N]
     pos = data_test.pos_edge_index          # [2, E_pos]
@@ -275,11 +274,11 @@ def eval_link_pred_ogb(dataset_name, aff, data_test):
 
     Kname = "Hits@50" if dataset_name == "ogbl-collab" else "Hits@100"
     return Kname, float(np.mean(hits))
+"""
 
-
-def eval_link_pred_nonogb(dataset_name, aff, data_test):
+def eval_link_pred_auc(dataset_name, aff, data_test):
     """
-    Non-OGB evaluation using AUROC.
+    Evaluation using AUROC.
     Assumes:
       - pos_edge_index, neg_edge_index are torch tensors [2, E]
       - aff is tf.Tensor or numpy [N, N]
@@ -315,10 +314,13 @@ def eval_link_pred_nonogb(dataset_name, aff, data_test):
     return "AUC", auc
 
 def eval_link_pred(dataset_name, aff, data_test):
+    """
     if dataset_name.startswith("ogbl"):
         return eval_link_pred_nonogb(dataset_name, aff, data_test)
     else:
         return eval_link_pred_nonogb(dataset_name, aff, data_test)
+    """
+    return eval_link_pred_auc(dataset_name, aff, data_test)
 
 def get_structure_info(data):
 

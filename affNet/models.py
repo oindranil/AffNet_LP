@@ -1,5 +1,5 @@
 import tensorflow as tf
-from utils import eval_link_pred
+#from utils import eval_link_pred
 
 # given true and predicted values of binary tensor
 # compute TP, FP, TN, FN & F1-score

@@ -1,5 +1,5 @@
 """
-program: utility routines for affinity matrix computation script
+program: load, subgraph and split routines
 
 """
 
@@ -133,14 +133,7 @@ def sample_negatives_degree_distance(
     num_nodes,
     adj_list,
     degrees,
-    K,
-):
-    """
-    pos_edge_index: torch.LongTensor [2, E]
-    adj_list: list[set] adjacency
-    degrees: torch.LongTensor [num_nodes]
-    Returns: torch.LongTensor [2, E*K]
-    """
+    K,):
 
     device = pos_edge_index.device
     E = pos_edge_index.size(1)
@@ -183,11 +176,6 @@ def sample_negatives_degree_distance(
     return torch.tensor([neg_src, neg_dst], dtype=torch.long, device=device)
 
 def generate_neg_edges_per_pos(pos_edge_index, num_nodes, forbidden_edge_index, K):
-    """
-    pos_edge_index: [2, E]
-    forbidden_edge_index: [2, E_all] (train + test positives)
-    returns: [E, K, 2]
-    """
     device = pos_edge_index.device
     E = pos_edge_index.shape[1]
 
@@ -395,11 +383,7 @@ def get_subgraphs_ogb(dataset_name, data, max_nodes, max_parts=10):
     SAFE OGB subgraphing:
     - edge-induced
     - no global adjacency
-    - citation2-safe
     """
-
-    import torch
-    from torch_geometric.data import Data
 
     min_edges = 50
     max_tries = 10 * max_parts
@@ -541,7 +525,6 @@ def get_subgraphs_ogb(dataset_name, data, max_nodes, max_parts=10):
             
 def get_subgraphs_nonogb(dataset_name, data, max_nodes, max_parts=10):
     
-    # we need a minimum 100 edges for hits@100 and 50 edges for hits@50.
     if dataset_name == "ogbl-ppa":
         min_edges = 100
     else:
